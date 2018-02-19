@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'PagesController@index');
+
+Route::resource('devices', 'DevicesController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
