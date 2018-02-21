@@ -21,9 +21,6 @@
 						<a class="nav-link" href="/devices">Devices</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/team-members">TeamMembers</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" target="_blank" rel="noopener" href="https://github.com/DimLoad/device-manager">Source Code</a>
 					</li>
 					<li class="nav-item">
@@ -44,7 +41,9 @@
 							{{ Auth::user()->name }} <span class="caret"></span>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<a class="dropdown-item" href="{{ route('logout') }}"
+								onclick="event.preventDefault();
+												document.getElementById('logout-form').submit();">
 								Logout
 							</a>
 
@@ -53,7 +52,7 @@
 							</form>
 						</div>
 					</li>
-				@endguest  
+				@endguest
 			</ul>
 		</div>
 	</div>

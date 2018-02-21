@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Device;
 
 class PagesController extends Controller
 {
 	public function index() {
-		$title = 'Device Allocation';
+		$data['title'] = 'Device Allocation';
 		
-		return view( 'pages.index')->with('title', $title);
+		$data['user_id'] = auth()->user()->id ?? null;
+
+		$data['users'] = User::all();
+				
+		return view( 'pages.index',$data);
 	}
 }

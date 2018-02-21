@@ -3,3 +3,9 @@
     margin:auto; 
     width: 250px;
 }
+
+.user-card:hover {
+    background-color: dimgrey !important;
+    color: #fff;
+    cursor: pointer;
+}

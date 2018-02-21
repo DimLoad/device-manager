@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Device;
+use App\User;
 use DB;
 
 class DevicesController extends Controller
@@ -19,6 +21,20 @@ class DevicesController extends Controller
         $devices = Device::orderBy('name', 'desc')->paginate(10);
 
         return view('devices.index')->with('devices', $devices);
+    }
+
+
+    public function getUserDevices()
+    {
+        $user = User::find(Input::get('userId'));
+        $devices = Device::all();
+ 
+        // map owner's name to each device to populate select options
+        foreach ( $devices as $device) {
+            $device['ownerName'] = $device->user['name'];
+        }
+   
+        return ['user' => $user, 'userDevices' => $user->devices, 'devices' => $devices ];
     }
 
     /**
