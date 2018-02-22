@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/getUserDevices', 'DevicesController@getUserDevices');
+Route::get('/assignDevice', 'DevicesController@assignDevice');
+Route::get('/deallocateDevice', 'DevicesController@deallocateDevice');

@@ -20,6 +20,12 @@ class DevicesController extends Controller
     {
         $devices = Device::orderBy('name', 'desc')->paginate(10);
 
+        // TO DO - find out how to do this with Eloquent
+        // map owner's name to each device to populate select options
+        foreach ( $devices as $device) {
+            $device['ownerName'] = $device->user['name'];
+        }
+
         return view('devices.index')->with('devices', $devices);
     }
 
@@ -29,12 +35,51 @@ class DevicesController extends Controller
         $user = User::find(Input::get('userId'));
         $devices = Device::all();
  
+        // TO DO - find out how to do this with Eloquent
         // map owner's name to each device to populate select options
         foreach ( $devices as $device) {
             $device['ownerName'] = $device->user['name'];
         }
    
         return ['user' => $user, 'userDevices' => $user->devices, 'devices' => $devices ];
+    }
+
+    public function assignDevice()
+    {   
+        if ( array_key_exists('userId', $_GET) && array_key_exists('deviceId', $_GET) ) {
+            $update = DB::table('devices')
+                ->where('id', Input::get('deviceId'))
+                ->update(['user_id' => Input::get('userId')]);
+
+                if ($update) {
+                    $result = 1;
+                } else {
+                    $result = 0;
+                }          
+        } else {
+            $result = 1;
+        }
+
+        return $result ? Device::find(Input::get('deviceId')) : 0;
+    }
+
+    public function deallocateDevice()
+    {
+        if (array_key_exists('deviceId', $_GET)) {
+            $update = DB::table('devices')
+                ->where('id', Input::get('deviceId'))
+                ->update(['user_id' => null]);
+
+                if ($update) {
+                    $result = 1;
+                } else {
+                    $result = 0;
+                }          
+        } else {
+            $result = 1;
+        }
+
+        return $result;        
     }
 
     /**

@@ -11,7 +11,7 @@ class PagesController extends Controller
 	public function index() {
 		$data['title'] = 'Device Allocation';
 		
-		$data['user_id'] = auth()->user()->id ?? null;
+		$data['userSignedIn'] = auth()->user() ?? null;
 
 		$data['users'] = User::all();
 				

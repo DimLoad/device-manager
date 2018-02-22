@@ -11,7 +11,11 @@
                     </div>
                     <div class="col-md-8 col-sm-8">
                         <h3>{{$device->name}}</h3>
-                        {{--  <small>Assigned to {{$post->user->name}}</small>  --}}
+                        @if ($device->ownerName != null)
+                            <small>Assigned to {{$device->ownerName}}</small>
+                        @else
+                        <small>Available</small>
+                        @endif
                     </div>
                 </div>                   
             </div>
